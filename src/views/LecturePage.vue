@@ -1,6 +1,12 @@
 <template>
   <BaseLayout>
     <template #body>
+      <button @click="goHome" class="back-button">
+        <i
+          class="pi pi-arrow-circle-left"
+          style="font-size: 1.5rem; color: #fff"
+        ></i>
+      </button>
       <p>Faça sua pergunta para os palestrantes:</p>
 
       <button
@@ -47,7 +53,7 @@ export default {
   components: {
     BaseLayout,
     AddQuestionModal,
-    Question
+    Question,
   },
   name: "LecturePage",
   data() {
@@ -55,21 +61,18 @@ export default {
       showAddQuestionModal: false,
       loading: false,
       questionsCollection: useCollection(
-        query(
-          collection(db, "questions"),
-          orderBy("created_at", "asc")
-        ),
+        query(collection(db, "questions"), orderBy("created_at", "asc")),
         { ssrKey: "questions" }
       ),
+      lectureId: localStorage.getItem("selectedLectureId"),
     };
   },
   computed: {
     questions() {
-      return this.questionsCollection.filter((question) => question.date === new Date().toLocaleDateString());
+      return this.questionsCollection.filter(
+        (question) => question.lectureId === this.lectureId
+      );
     },
-  },
-  mounted() {
-    console.log(this.questionsCollection);
   },
   methods: {
     openAddQuestionModal() {
@@ -79,12 +82,12 @@ export default {
       this.showAddQuestionModal = false;
     },
     addQuestion(data) {
-      console.log(data.name);
       this.closeAddQuestionModal();
 
       this.loading = true;
 
       addDoc(collection(db, "questions"), {
+        lectureId: this.lectureId,
         name: data.name,
         company: data.company,
         question: data.question,
@@ -92,16 +95,29 @@ export default {
         created_at: new Date(),
       }).then(() => (this.loading = false));
     },
+    goHome() {
+      this.$router.push("/");
+    },
   },
 };
 </script>
 
 <style scoped>
+.back-button { 
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
 p {
   font-family: inherit;
   font-size: 1.2rem;
   font-weight: 600;
   color: #fff;
+  margin-top: 0;
 }
 
 .loading {
@@ -117,6 +133,7 @@ p {
   -webkit-tap-highlight-color: transparent;
   font-size: 1.3rem;
   width: 80%;
+  margin-bottom: 15px;
 }
 
 button,

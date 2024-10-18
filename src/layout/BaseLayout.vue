@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header @click="goToHomePage">
     <img src="../assets/CONF-verde.png" alt="Logo" />
     <div class="divisor" />
   </header>
@@ -12,20 +12,24 @@
 <script>
 export default {
   name: "BaseLayout",
+  methods: {
+    goToHomePage() {
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 
 <style scoped>
-header,
-footer {
+header {
   height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
   margin: 0;
   left: 0;
   background-color: #fff;
+  cursor: pointer;
 }
 
 header {
@@ -49,25 +53,13 @@ img {
   max-width: 300px;
 }
 
-h1 {
-  font-size: 25px;
-  font-family: "Playfair Display", sans-serif;
-  background: linear-gradient(to right, #2bb41e, #0aafa6);
-  color: transparent;
-  background-clip: text;
-}
-
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 0 20px;
-}
-
-footer {
-  bottom: 0;
-  font-family: "Playfair Display", sans-serif;
-  position: fixed;
+  padding-bottom: 40px;
+  height: 100%;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div :class="`lecture ${disabled && 'disabled'}`">
-    <p class="lecture-date">{{order}}º dia</p>
     <div class="lecture-details">
       <div>
         <p class="lecture-title">{{ title }}</p>
@@ -66,6 +65,10 @@ p {
   color: #0aafa6;
 }
 
+.lecture-title {
+  color: #0aafa6;
+}
+
 .lecture-title,
 .lecture-description {
   margin: 0;
@@ -85,6 +88,6 @@ i {
   margin-left: 10px;
   position: absolute;
   right: 10px;
-  top: 43%;
+  top: 45%;
 }
 </style>

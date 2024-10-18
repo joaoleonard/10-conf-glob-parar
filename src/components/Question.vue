@@ -35,14 +35,14 @@ export default {
 
 .user-info {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   width: 100%;
   align-items: center;
 }
 
 .name {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   margin: 0;
   color: #0aafa6;
@@ -52,7 +52,7 @@ export default {
   font-size: 1.2rem;
   font-weight: 700;
   margin: 0;
-  color: #0aafa6;
+  color: #808080;
 }
 
 .question {

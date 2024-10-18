@@ -1,16 +1,18 @@
 <template>
   <BaseLayout>
     <template #body>
-      <p>Participe:</p>
+      <p>Selecione a palestra ativa:</p>
 
-      <Lecture
-        v-for="lecture in lectures"
-        :key="lecture.title"
-        :title="lecture.title"
-        :description="lecture.description"
-        @click="() => goToLecturePage(lecture)"
-        :disabled="lecture.id !== activeLectureId"
-      />
+      <select type="select" :value="activeLectureId" @change="(l) => changeActiveLecture(l)">
+        <option value="0" selected>Nenhuma</option>
+        <option
+          v-for="lecture in lectures"
+          :value="lecture.id"
+          :key="lecture.id"
+        >
+          {{ lecture.title }}
+        </option>
+      </select>
     </template>
   </BaseLayout>
 </template>
@@ -18,7 +20,10 @@
 <script>
 import { db } from "../firebase.js";
 import {
+  addDoc,
   query,
+  deleteDoc,
+  doc,
   collection,
 } from "firebase/firestore";
 import Lecture from "../components/Lecture.vue";
@@ -33,11 +38,6 @@ export default {
   name: "RequestPage",
   data() {
     return {
-      showAddRequestModal: false,
-      showDeleteRequestModal: false,
-      showGetUserNameModal: false,
-      songSelected: "",
-      loading: false,
       lectures: this.$store.state.lectures,
       activeLecture: useCollection(
         query(collection(db, "config")),
@@ -53,12 +53,16 @@ export default {
     },
   },
   methods: {
-    goToLecturePage(lecture) {
-      if (lecture.id !== this.activeLectureId) return;
-      
-      localStorage.setItem("selectedLectureId", lecture.id);
+    async changeActiveLecture(event) {
+      const lectureId = event.target.value;
 
-      this.$router.push("/lecture");
+      const configRef = doc(db, "config", this.activeLecture[0].id);
+
+      await deleteDoc(configRef);
+
+      await addDoc(collection(db, "config"), {
+        activeLectureId: Number(lectureId),
+      });
     },
   },
 };
@@ -70,6 +74,22 @@ p {
   font-size: 1.2rem;
   font-weight: 600;
   color: #fff;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-family: inherit;
+  background-color: #808080;
+  color: #fff;
+  border: none;
+}
+
+select:focus {
+  outline: none;
 }
 
 .loading {
