@@ -20,7 +20,7 @@ export default {
 <style scoped>
 .question-container {
   background-color: #fff;
-  width: 80vw;
+  width: 90%;
   border-radius: 18px;
   min-height: 60px;
   display: flex;

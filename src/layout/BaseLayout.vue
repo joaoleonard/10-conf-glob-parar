@@ -1,11 +1,13 @@
 <template>
-  <header @click="goToHomePage">
-    <img src="../assets/CONF-verde.png" alt="Logo" />
-    <div class="divisor" />
-  </header>
-  <main>
-    <slot name="body" />
-  </main>
+  <div class="container">
+    <header @click="goToHomePage">
+      <img src="../assets/CONF-verde.png" alt="Logo" />
+      <div class="divisor" />
+    </header>
+    <main>
+      <slot name="body" />
+    </main>
+  </div>
   <slot name="modals" />
 </template>
 
@@ -30,6 +32,14 @@ header {
   left: 0;
   background-color: #fff;
   cursor: pointer;
+}
+
+.container {
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0 auto;
 }
 
 header {

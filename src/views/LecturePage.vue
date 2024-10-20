@@ -21,7 +21,7 @@
       <div v-if="loading" class="loading">
         <p>Carregando...</p>
       </div>
-      <div v-else-if="!loading && questions.length">
+      <div v-else-if="!loading && questions.length" class="questions-list">
         <p>Lista de perguntas</p>
         <Question
           v-for="question in questions"
@@ -134,6 +134,13 @@ p {
   font-size: 1.3rem;
   width: 80%;
   margin-bottom: 15px;
+}
+
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 button,

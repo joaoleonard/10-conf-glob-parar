@@ -3,14 +3,14 @@
     <div class="modal-backdrop" @click="close">
       <div class="modal" @click.stop>
         <div class="modal-header">
-          <h2 class="title">Encerrar show!</h2>
+          <h2 class="title">Deletar perguntas!</h2>
           <button @click="close" class="btn-close">
             <SvgCloseX />
           </button>
         </div>
 
         <div class="modal-body">
-          <p>Ao encerrar o show, todos os pedidos serão excluídos.<br>Deseja realmente fazer isso?</p>
+          <p>Essa é uma ação irreversível.<br>Deseja realmente fazer isso?</p>
         </div>
 
         <slot name="footer">
@@ -32,7 +32,7 @@
 import SvgCloseX from "../SvgCloseX.vue";
 export default {
   components: { SvgCloseX },
-  name: "DeleteRequestModal",
+  name: "DeleteQuestionsModal",
   methods: {
     close() {
       this.$emit("close");
