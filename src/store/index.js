@@ -3,12 +3,12 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     lectures: [
-      {
-        id: 1,
-        title: "A hora da verdade!",
-        description:
-          "As dúvidas mais comuns entre os gestores de frotas desvendadas pelos experts do setor automotivo.",
-      },
+      // {
+      //   id: 1,
+      //   title: "A hora da verdade!",
+      //   description:
+      //     "As dúvidas mais comuns entre os gestores de frotas desvendadas pelos experts do setor automotivo.",
+      // },
       {
         id: 2,
         title:
